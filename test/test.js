@@ -76,9 +76,17 @@ var data = [
 
 
 describe('#upload()', function () {
+    it('should return empty responses array', function () {
+      return clevertap.upload([], {batchSize:1000}).then( (responses) => {
+          assert.equal(0, responses.length);
+      });
+    });
+
     it('should return 6 processed records', function () {
-      return clevertap.upload(data, {batchSize:1000}).then( (res) => {
+      return clevertap.upload(data, {batchSize:1000}).then( (responses) => {
+          var res = responses[0];
           if (!res) res = {};
+
           assert.equal(6, res.processed);
       });
     });
